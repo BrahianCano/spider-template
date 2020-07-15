@@ -2,7 +2,6 @@
 
 body {
   font-family: "Nunito", sans-serif !important;
-  font-weight: 600;
   background-color: #f3f9fb;
 }
 
@@ -24,28 +23,27 @@ button,
 input,
 optgroup,
 select,
-textarea,
 a {
   font-family: "Nunito", sans-serif !important;
 }
 
-.btn-outline-secondary{
-  border-color: #E34B31 !important;
+.btn-outline-secondary {
+  border-color: #e34b31 !important;
   color: #f3f9fb !important;
 }
 
 .btn-outline-secondary:hover {
-  background-color: #E34B31 !important;
-  border-color: #E34B31 !important;
+  background-color: #e34b31 !important;
+  border-color: #e34b31 !important;
 }
 
-.btn-secondary{
-  border-color: #E34B31 !important;
-  background-color: #E34B31 !important;
+.btn-secondary {
+  border-color: #e34b31 !important;
+  background-color: #e34b31 !important;
   color: #f3f9fb !important;
 }
 
 .btn-secondary:hover {
-  background-color: #D94025 !important;
-  border-color: #D94025 !important;
+  background-color: #d94025 !important;
+  border-color: #d94025 !important;
 }
