@@ -1,17 +1,9 @@
-div.main {
-  height: 85vh;
+div.loading-page {
+  height: 100vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-img.main-logo{
-  width: 100px;
-}
-
-div.main div.row a{
-  width: 250px;
 }

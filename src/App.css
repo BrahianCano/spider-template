@@ -28,3 +28,24 @@ textarea,
 a {
   font-family: "Nunito", sans-serif !important;
 }
+
+.btn-outline-secondary{
+  border-color: #E34B31 !important;
+  color: #f3f9fb !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #E34B31 !important;
+  border-color: #E34B31 !important;
+}
+
+.btn-secondary{
+  border-color: #E34B31 !important;
+  background-color: #E34B31 !important;
+  color: #f3f9fb !important;
+}
+
+.btn-secondary:hover {
+  background-color: #D94025 !important;
+  border-color: #D94025 !important;
+}

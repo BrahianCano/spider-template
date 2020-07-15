@@ -6,10 +6,13 @@ import App from "./App";
 import firebaseConfig from "./assets/scripts/firebaseConfig";
 import { FirebaseAppProvider } from "reactfire";
 
+// Componentes //
+import LoadingPage from "./pages/LoadingPage/index";
+
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <Suspense fallback={'Cargado app...'}>
+      <Suspense fallback={<LoadingPage />}>
         <App />
       </Suspense>
     </FirebaseAppProvider>

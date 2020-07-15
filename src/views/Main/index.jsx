@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link, useHistory, Redirect } from 'react-router-dom'
 
 // Utilidades //
-import { useFirebaseApp } from 'reactfire';
+import { useFirebaseApp, useUser } from 'reactfire';
 import 'firebase/auth';
 import Swal from 'sweetalert2';
 
@@ -14,6 +15,8 @@ import Footer from '../../components/Footer.jsx'
 
 const MainComponent = () => {
      const firebase = useFirebaseApp();
+     const history = useHistory();
+     const user = useUser();
 
      const loginWithGoogle = () => {
           let provider = new firebase.auth.GoogleAuthProvider();
@@ -26,7 +29,8 @@ const MainComponent = () => {
                          showConfirmButton: false,
                          timer: 1500
                     })
-                    console.log(result);
+                    history.push('/newtemplate');
+                    // console.log(result);
                })
                .catch((err) => {
                     Swal.fire({
@@ -36,32 +40,38 @@ const MainComponent = () => {
                          showConfirmButton: false,
                          timer: 1500
                     })
-                    console.log(err)
+                    console.error(err)
                })
      }
 
-
      return (
           <>
-               <div className="main">
-                    <img className="main-logo figure-img img-fluid" src={logo} alt="logo" />
-                    <h1>Spider Template</h1>
-                    <p className="lead">¡Comparte tus plantillas y codigos con las comunidad!</p>
-                    <h4 className="mb-2" >¿Que deseas hacer?</h4>
-                    <div className="row">
+               {!user ?
+                    <>
+                         <div className="main">
+                              <img className="main-logo figure-img img-fluid" src={logo} alt="logo" />
+                              <h1>SpiderTemplate</h1>
+                              <p className="lead">¡Comparte tus plantillas y codigos con las comunidad!</p>
+                              <h4 className="mb-2" >¿Que deseas hacer?</h4>
+                              <div className="row">
 
-                         <div className="col-sm-12 col-md-12 mb-2">
-                              <button type="button" className="btn btn-success"
-                                   onClick={() => { loginWithGoogle() }}
-                              ><i className="fas fa-file-code" /> Compartir una plantilla</button>
-                         </div>
-                         <div className="col-sm-12 col-md-12">
-                              <button type="button" className="btn btn-dark"><i className="fas fa-search" /> Buscar una plantilla</button>
-                         </div>
-                    </div>
+                                   <div className="col-sm-12 col-md-12 mb-2">
+                                        <Link type="button" className="btn btn-secondary"
+                                             onClick={() => { loginWithGoogle() }}
+                                        ><i className="fas fa-file-code" /> Compartir una plantilla</Link>
+                                   </div>
+                                   <div className="col-sm-12 col-md-12">
+                                        <Link type="button" to="/dashboard" className="btn btn-dark"><i className="fas fa-search" /> Buscar una plantilla</Link>
+                                   </div>
+                              </div>
 
-               </div>
-               <Footer />
+                         </div>
+                         <Footer />
+                    </>
+                    :
+                    <Redirect to="/newtemplate" />
+          }
+
           </>
      );
 }

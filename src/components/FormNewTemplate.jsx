@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormLoginComponent = () => {
+const FormNewTemplate = () => {
      return ( 
           <div>
 
@@ -8,4 +8,4 @@ const FormLoginComponent = () => {
       );
 }
  
-export default FormLoginComponent;
+export default FormNewTemplate;
