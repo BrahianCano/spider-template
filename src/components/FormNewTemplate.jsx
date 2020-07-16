@@ -1,29 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // Utilidades //
-import CodeMirror from 'react-codemirror'
+import CodeMirror from 'react-codemirror';
+import { useForm } from "react-hook-form";
+import moment from 'moment';
+import Swal from 'sweetalert2';
+
 
 // Componentes //
 import Footer from '../components/Footer'
 
-const FormNewTemplate = () => {
+const FormNewTemplate = ({ onSubmitNewTemplate }) => {
+
      const optionsCodeMirror = {
           lineNumbers: true,
           mode: 'javascript',
           theme: 'material-ocean',
      };
+     const { register, handleSubmit, errors } = useForm();
+     const dateNow = moment().format('L');
+
+     const stateInitial = {
+          idTemplate: "",
+          idUser: "",
+          titleCode: "",
+          categoryCode: "Otro",
+          descriptionCode: "",
+          atsCode: "Otro",
+          scriptCode: "",
+          lastEditeCode:dateNow,
+          createDate: dateNow
+     }
+
+     const [dataInputs, setDataInputs] = useState(stateInitial);
 
      return (
           <>
-               <form className="text-left my-1">
+               <form className="text-left my-1"
+                    onSubmit={
+                         handleSubmit(() => {
+                              if (dataInputs.scriptCode.length > 0) {
+                                   onSubmitNewTemplate(dataInputs);
+                                   setDataInputs(stateInitial);
+                              } else {
+                                   Swal.fire({
+                                        position: 'center',
+                                        icon: 'question',
+                                        title: '¿Y tu código?',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                   })
+                              }
+                         })
+                    }
+               >
                     <div className="form-row my-3">
                          <div className="form-group col-md-6 col-sm-12">
-                              <label className="text-muted" for="inputTitle">Titulo del código*</label>
-                              <input type="text" class="form-control" id="inputTitle" placeholder="FECHA DE POSTEO EN ALEMAN" />
+                              <label className="text-muted" htmlFor="inputTitle">Titulo del código*</label>
+                              <input type="text" className="form-control" id="inputTitle" placeholder="Fecha de posteo en frances"
+                                 value={dataInputs.titleCode}
+                                   name="inputTitle"
+                                   ref={register({ required: true })}
+                                   onChange={(event) => {
+                                        setDataInputs({
+                                             ...dataInputs,
+                                             titleCode: event.target.value
+                                        })
+                                   }}
+                              />
+                              {errors.inputTitle && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
                          </div>
                          <div className="form-group col-md-6 col-sm-12">
-                              <label className="text-muted" for="validationStep">Categoria</label>
-                              <select class="custom-select" id="validationStep">
+                              <label className="text-muted" htmlFor="validationStep">Categoria</label>
+                              <select className="custom-select" id="validationStep"
+                               value={dataInputs.categoryCode}
+                                   onChange={(event) => {
+                                        setDataInputs({
+                                             ...dataInputs,
+                                             categoryCode: event.target.value
+                                        })
+                                   }}
+                              >
                                    <option>Extrac</option>
                                    <option>Pagination</option>
                                    <option>Jobdata</option>
@@ -34,12 +91,31 @@ const FormNewTemplate = () => {
                     </div>
                     <div className="form-row my-3">
                          <div className="form-group col-md-6 col-sm-12">
-                              <label className="text-muted" for="inputDescription">Descripción del código*</label>
-                              <input type="text" class="form-control" id="inputDescription" placeholder="Función para extraer fechas de meses atras en Aleman" />
+                              <label className="text-muted" htmlFor="inputDescription">Descripción del código*</label>
+                              <input type="text" className="form-control" id="inputDescription" placeholder="Función para extraer fechas de formato texto en idioma Frances"
+                                 value={dataInputs.descriptionCode}
+                                  name="inputDescription"
+                                   ref={register({ required: true })}
+                                   onChange={(event) => {
+                                        setDataInputs({
+                                             ...dataInputs,
+                                             descriptionCode: event.target.value
+                                        })
+                                   }}
+                              />
+                              {errors.inputDescription && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
                          </div>
                          <div className="form-group col-md-6 col-sm-12">
-                              <label className="text-muted" for="validationStep">ATS</label>
-                              <select class="custom-select" id="validationStep">
+                              <label className="text-muted" htmlFor="validationAts">ATS</label>
+                              <select className="custom-select" id="validationAts"
+                               value={dataInputs.atsCode}
+                                   onChange={(event) => {
+                                        setDataInputs({
+                                             ...dataInputs,
+                                             atsCode: event.target.value
+                                        })
+                                   }}
+                              >
                                    <option>MYWORKDAY</option>
                                    <option>ADP</option>
                                    <option>ICIMS</option>
@@ -49,14 +125,19 @@ const FormNewTemplate = () => {
                     </div>
                     <div className="form-row my-3">
                          <div className="col-md-12 col-sm-12">
-                              <p className="text-muted" for="validationCode">Codigo fuente*</p>
-                              <CodeMirror value="" options={optionsCodeMirror} onChange={(valueCode) => {
-                                   console.log(valueCode)
-                              }} />
+                              <p className="text-muted" htmlFor="validationCode">Código fuente*</p>
+                              <CodeMirror value={dataInputs.scriptCode} options={optionsCodeMirror}    
+                                   onChange={(valueCode) => {
+                                        setDataInputs({
+                                             ...dataInputs,
+                                             scriptCode: valueCode
+                                        })
+                                   }}
+                              />
                          </div>
                     </div>
-                    <div className="form-row my-3">
-                         <button className="btn btn-secondary">Compartir</button>
+                    <div className="form-row my-3 float-right">
+                         <button className="btn btn-secondary"><i className="fas fa-file-code" /> Compartir</button>
                     </div>
                </form>
                <Footer />

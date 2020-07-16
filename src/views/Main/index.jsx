@@ -33,6 +33,7 @@ const MainComponent = () => {
                     // console.log(result);
                })
                .catch((err) => {
+                    console.error(err)
                     Swal.fire({
                          position: 'center',
                          icon: 'error',
@@ -40,7 +41,7 @@ const MainComponent = () => {
                          showConfirmButton: false,
                          timer: 1500
                     })
-                    console.error(err)
+                    
                })
      }
 
@@ -51,7 +52,7 @@ const MainComponent = () => {
                          <div className="main">
                               <img className="main-logo figure-img img-fluid" src={logo} alt="logo" />
                               <h1>SpiderTemplate</h1>
-                              <p className="lead">¡Comparte tus plantillas y codigos con las comunidad!</p>
+                              <p className="lead">¡Comparte tus plantillas y códigos con las comunidad!</p>
                               <h4 className="mb-2" >¿Que deseas hacer?</h4>
                               <div className="row">
 
