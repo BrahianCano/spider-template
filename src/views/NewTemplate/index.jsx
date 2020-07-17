@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom';
 
 // Utilidades //
@@ -11,6 +11,8 @@ import uniqid from 'uniqid';
 // Componentes //
 import NavBar from '../../components/NavBar';
 import FormNewTemplate from '../../components/FormNewTemplate';
+import Footer from '../../components/Footer';
+
 
 const NewTemplateComponent = () => {
      const firestore = useFirestore();
@@ -49,14 +51,15 @@ const NewTemplateComponent = () => {
                <>
                     <NavBar />
                     <div className="container my-1 text-center">
-                         <div className="alert alert-success" role="alert">
+                         <div className="alert alert-primary" role="alert">
                               Llena lo campos requeridos y muéstrales a todos tu increíble código.
                          </div>
                     </div>
-                    <section className="container my-1 text-center">
-                         <h4 className="mt-5">INFORMACIÓN SOBRE TU PLANTILLA</h4>
+                    <section className="container my-5 text-center">
+                         <h4 className="my-1">DATOS SOBRE TU PLANTILLA</h4>
                          <FormNewTemplate onSubmitNewTemplate={onSubmitNewTemplate} />
                     </section>
+                    <Footer />
                </>
                :
                <Redirect to="/" />

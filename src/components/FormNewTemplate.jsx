@@ -7,9 +7,6 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 
 
-// Componentes //
-import Footer from '../components/Footer'
-
 const FormNewTemplate = ({ onSubmitNewTemplate }) => {
 
      const optionsCodeMirror = {
@@ -140,7 +137,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                          <button className="btn btn-secondary"><i className="fas fa-file-code" /> Compartir</button>
                     </div>
                </form>
-               <Footer />
+             
           </>
      );
 }
