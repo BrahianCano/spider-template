@@ -1,5 +1,4 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 // Utilidades //
 import { useFirebaseApp } from 'reactfire';
@@ -8,9 +7,11 @@ import 'firebase/auth'
 // Estilos // 
 import Swal from 'sweetalert2';
 
-const ButtonSingOutComponent = () => {
+
+const UseSingoutGoogle = () => {
      const firebase = useFirebaseApp();
      const history = useHistory();
+
 
      const signOutGoogle = () => {
           firebase.auth().signOut()
@@ -37,11 +38,7 @@ const ButtonSingOutComponent = () => {
                });
      }
 
-     return (
-          <>
-               <a className="nav-link" onClick={() => { signOutGoogle() }}><i className="fas fa-sign-out-alt"></i></a>
-          </>
-     );
+     return [signOutGoogle];
 }
 
-export default ButtonSingOutComponent;
+export default UseSingoutGoogle;

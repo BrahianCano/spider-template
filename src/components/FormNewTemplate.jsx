@@ -7,29 +7,31 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 
 
-const FormNewTemplate = ({ onSubmitNewTemplate }) => {
 
+const FormNewTemplate = ({ onSubmitNewTemplate }) => {
+     const { register, handleSubmit, errors } = useForm();
      const optionsCodeMirror = {
           lineNumbers: true,
           mode: 'javascript',
           theme: 'material-ocean',
      };
-     const { register, handleSubmit, errors } = useForm();
-     const dateNow = moment().format('L');
+
+     const dateNow = moment().format('ll');
 
      const stateInitial = {
           idTemplate: "",
-          idUser: "",
+          nameUser: "",
           titleCode: "",
           categoryCode: "Otro",
           descriptionCode: "",
           atsCode: "Otro",
           scriptCode: "",
-          lastEditeCode:dateNow,
+          lastEditeCode: dateNow,
           createDate: dateNow
      }
 
      const [dataInputs, setDataInputs] = useState(stateInitial);
+
 
      return (
           <>
@@ -55,7 +57,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                          <div className="form-group col-md-6 col-sm-12">
                               <label className="text-muted" htmlFor="inputTitle">Titulo del código*</label>
                               <input type="text" className="form-control" id="inputTitle" placeholder="Fecha de posteo en frances"
-                                 value={dataInputs.titleCode}
+                                   value={dataInputs.titleCode}
                                    name="inputTitle"
                                    ref={register({ required: true })}
                                    onChange={(event) => {
@@ -70,7 +72,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                          <div className="form-group col-md-6 col-sm-12">
                               <label className="text-muted" htmlFor="validationStep">Categoria</label>
                               <select className="custom-select" id="validationStep"
-                               value={dataInputs.categoryCode}
+                                   value={dataInputs.categoryCode}
                                    onChange={(event) => {
                                         setDataInputs({
                                              ...dataInputs,
@@ -82,7 +84,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                    <option>Pagination</option>
                                    <option>Jobdata</option>
                                    <option>Función</option>
-                                   <option selected >Otro</option>
+                                   <option defaultValue="Otro" >Otro</option>
                               </select>
                          </div>
                     </div>
@@ -90,9 +92,9 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                          <div className="form-group col-md-6 col-sm-12">
                               <label className="text-muted" htmlFor="inputDescription">Descripción del código*</label>
                               <input type="text" className="form-control" id="inputDescription" placeholder="Función para extraer fechas de formato texto en idioma Frances"
-                                 value={dataInputs.descriptionCode}
-                                  name="inputDescription"
-                                   ref={register({ required: true })}
+                                   value={dataInputs.descriptionCode}
+                                   name="inputDescription"
+                                   ref={register({ required: true, maxLength: 130 })}
                                    onChange={(event) => {
                                         setDataInputs({
                                              ...dataInputs,
@@ -100,12 +102,13 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                         })
                                    }}
                               />
-                              {errors.inputDescription && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
+                              {errors.inputDescription?.type === "required" && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
+                              {errors.inputDescription?.type === "maxLength" && <span style={{ fontSize: "12px" }} className="text-danger">Solo se permite un maximo de 130 caracteres.</span>}
                          </div>
                          <div className="form-group col-md-6 col-sm-12">
                               <label className="text-muted" htmlFor="validationAts">ATS</label>
                               <select className="custom-select" id="validationAts"
-                               value={dataInputs.atsCode}
+                                   value={dataInputs.atsCode}
                                    onChange={(event) => {
                                         setDataInputs({
                                              ...dataInputs,
@@ -116,14 +119,14 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                    <option>MYWORKDAY</option>
                                    <option>ADP</option>
                                    <option>ICIMS</option>
-                                   <option selected >Otro</option>
+                                   <option defaultValue="Otro" >Otro</option>
                               </select>
                          </div>
                     </div>
                     <div className="form-row my-3">
                          <div className="col-md-12 col-sm-12">
                               <p className="text-muted" htmlFor="validationCode">Código fuente*</p>
-                              <CodeMirror value={dataInputs.scriptCode} options={optionsCodeMirror}    
+                              <CodeMirror value={dataInputs.scriptCode} options={optionsCodeMirror}
                                    onChange={(valueCode) => {
                                         setDataInputs({
                                              ...dataInputs,
@@ -133,11 +136,11 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                               />
                          </div>
                     </div>
-                    <div className="form-row my-3 float-right">
-                         <button className="btn btn-secondary"><i className="fas fa-file-code" /> Compartir</button>
+                    <div className="form-row my-2 float-right">
+                         <button className="btn btn-secondary" style={{ width: "180px" }}><i className="fas fa-file-code" /> Compartir</button>
                     </div>
                </form>
-             
+
           </>
      );
 }

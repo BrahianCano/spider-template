@@ -1,49 +1,24 @@
 import React from 'react'
-import { Link, useHistory, Redirect } from 'react-router-dom'
-
-// Utilidades //
-import { useFirebaseApp, useUser } from 'reactfire';
-import 'firebase/auth';
-import Swal from 'sweetalert2';
+import { Link, Redirect } from 'react-router-dom'
 
 // Estilos //
 import './index.css'
 import logo from '../../assets/images/logo128.png'
 
+// Utilidades //
+import { useUser } from 'reactfire';
+
+// Custom Hooks //
+import UseLoginGoogle from '../../hooks/UseLoginGoogle.js';
+
 // Componentes //
 import Footer from '../../components/Footer.jsx'
 
-const MainComponent = () => {
-     const firebase = useFirebaseApp();
-     const history = useHistory();
-     const user = useUser();
 
-     const loginWithGoogle = () => {
-          let provider = new firebase.auth.GoogleAuthProvider();
-          firebase.auth().signInWithPopup(provider)
-               .then((result) => {
-                    Swal.fire({
-                         position: 'center',
-                         icon: 'success',
-                         title: 'Bienvenido ' + result.user.displayName,
-                         showConfirmButton: false,
-                         timer: 1500
-                    })
-                    history.push('/newtemplate');
-                    // console.log(result);
-               })
-               .catch((err) => {
-                    console.error(err)
-                    Swal.fire({
-                         position: 'center',
-                         icon: 'error',
-                         title: 'Algo a salido mal, intenta de nuevo',
-                         showConfirmButton: false,
-                         timer: 1500
-                    })
-                    
-               })
-     }
+
+const MainComponent = () => {
+     const user = useUser();
+     const [googleAuth] = UseLoginGoogle();
 
      return (
           <>
@@ -57,9 +32,9 @@ const MainComponent = () => {
                               <div className="row">
 
                                    <div className="col-sm-12 col-md-12 mb-2">
-                                        <Link type="button" className="btn btn-secondary"
-                                             onClick={() => { loginWithGoogle() }}
-                                        ><i className="fas fa-file-code" /> Compartir una plantilla</Link>
+                                        <a type="button" className="btn btn-secondary"
+                                             onClick={() => { googleAuth() }}
+                                        ><i className="fas fa-file-code" /> Compartir una plantilla</a>
                                    </div>
                                    <div className="col-sm-12 col-md-12">
                                         <Link type="button" to="/dashboard" className="btn btn-dark"><i className="fas fa-search" /> Buscar una plantilla</Link>

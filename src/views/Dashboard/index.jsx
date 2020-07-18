@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useHistory, withRouter } from 'react-router-dom';
 
 // Utilidades //
 import MUIDataTable from "mui-datatables";
 
-import { useFirestore } from 'reactfire';
-import 'firebase/firebase-firestore';
+// Custom Hooks //
+import UseGetCollectionFirestore from '../../hooks/UseGetCollectionFirestore';
 
 // Componentes //
 import NavBar from '../../components/NavBar';
@@ -12,74 +13,108 @@ import Footer from '../../components/Footer';
 
 
 const DashboardComponent = () => {
-     const firestore = useFirestore();
-
-     const [dataTemplates, setDataTemplates] = useState([]);
+     const history = useHistory();
+     const [data, getCollection] = UseGetCollectionFirestore();
 
      useEffect(() => {
-          getTemplates()
+          getCollection('templates');
      }, [])
-
-     const getTemplates = () => {
-          firestore()
-               .collection("templates")
-               .onSnapshot((querySnapshot) => {
-                    const docs = [];
-                    querySnapshot.forEach(function (doc) {
-                         docs.push(doc.data());
-                    });
-                    setDataTemplates(docs);
-                    //console.log(docs)
-               });
-     }
 
      const options = {
           filterType: 'checkbox',
           responsive: "standard",
+          download: false,
+          print: false,
+          selectableRowsHeader: false,
+          selectableRowsHideCheckboxes: true,
+          viewColumns: false,
+          onRowClick: function (rowData) {
+               const id = rowData[6]
+               history.push('dashboard/' + id)
+          }
      };
 
      const columns = [
-          { label: "createDate", name: "createDate" },
-          { label: "lastEditeCode", name: "lastEditeCode" },
-          { label: "titleCode", name: "titleCode" },
-          { label: "descriptionCode", name: "descriptionCode" },
-          { label: "categoryCode", name: "categoryCode" },
-          { label: "atsCode", name: "atsCode" },
           {
-               label: "scriptCode", name: "scriptCode", options: {
-                    display: 'false'
+               label: "FECHA EDICIÓN", name: "lastEditeCode", options: {
+                    filter: false,
+                    sort: true,
                }
           },
           {
-               label: "idUser", name: "idUser", options: {
-                    display: 'false'
+               label: "CREADOR", name: "nameUser", options: {
+                    filter: true,
+                    sort: false,
                }
           },
           {
-               label: "idTemplate", name: "idTemplate", options: {
-                    display: 'false'
+               label: "TITULO", name: "titleCode", options: {
+                    filter: false,
+                    sort: false,
+               }
+          },
+          {
+               label: "DESCRIPCION", name: "descriptionCode", options: {
+                    filter: false,
+                    sort: false,
+               }
+          },
+          {
+               label: "CATEGORIA", name: "categoryCode", options: {
+                    filter: true,
+                    sort: false,
+               }
+          },
+          {
+               label: "ATS", name: "atsCode", options: {
+                    filter: true,
+                    sort: false,
+               }
+          },
+          {
+               label: "ID TEMPLATE", name: "idTemplate", options: {
+                    display: 'false',
+                    filter: false,
+                    sort: false,
+               }
+          },
+          {
+               label: "FECHA CREACION", name: "createDate", options: {
+                    display: 'false',
+                    filter: false,
+                    sort: false,
+               }
+          },
+          {
+               label: "CODIGO FUENTE", name: "scriptCode", options: {
+                    display: 'false',
+                    filter: false,
+                    sort: false,
                }
           }
+
 
      ];
 
      return (
-          <div>
+          <>
                <NavBar />
-               <div className="m-3 my-5">
-                    <div class="alert alert-primary" role="alert">
-                         ¡Comparte tus plantillas y códigos con las comunidad!
+               <div className="mx-3 my-5">
+                    <div className="my-1">
+                         <div className="alert alert-primary" role="alert">
+                              ¡Comparte tus plantillas y códigos con las comunidad! ❤
+                         </div>
                     </div>
+                    <MUIDataTable
+                         title={"PLANTILLAS COMPARTIDAS"}
+                         data={data}
+                         columns={columns}
+                         options={options}
+                    />
                </div>
-               <MUIDataTable
-                    title={"PLANTILLAS COMPARTIDAS"}
-                    data={dataTemplates}
-                    columns={columns}
-                    options={options}
-               />
                <Footer />
-          </div>
+          </>
      );
 }
 
-export default DashboardComponent;
+export default withRouter(DashboardComponent);

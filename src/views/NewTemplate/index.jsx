@@ -1,64 +1,85 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { Redirect, useHistory } from 'react-router-dom';
 
 // Utilidades //
-import { useUser, useFirestore } from 'reactfire';
-import 'firebase/firebase-firestore';
-
-import Swal from 'sweetalert2';
+import { useUser } from 'reactfire';
 import uniqid from 'uniqid';
+
+// Custom hooks //
+import UseSetCollectionFirestore from '../../hooks/UseSetCollectionFirestore.js';
+import UseGetCollectionFirestore from '../../hooks/UseGetCollectionFirestore.js';
+
 
 // Componentes //
 import NavBar from '../../components/NavBar';
 import FormNewTemplate from '../../components/FormNewTemplate';
 import Footer from '../../components/Footer';
+import CardNews from '../../components/CardNews';
+
 
 
 const NewTemplateComponent = () => {
-     const firestore = useFirestore();
+     const history = useHistory();
      const user = useUser();
      const id = uniqid();
 
-     const onSubmitNewTemplate = async (dataInputs) => {
+     const [data, setDocCollection] = UseSetCollectionFirestore();
+     const [dataNews, getCollection] = UseGetCollectionFirestore();
+
+
+     const onSubmitNewTemplate = (dataInputs) => {
           const dataTemplate = {
                ...dataInputs,
-               idUser: user.uid,
+               nameUser: user.displayName,
                idTemplate: id
           }
-          try {
-               await firestore().collection('templates').doc(dataTemplate.idTemplate).set(dataTemplate);
-               Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Plantilla agregada con exito.',
-                    showConfirmButton: false,
-                    timer: 1200
-               })
-          } catch (err) {
-               console.error(err);
-               Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Algo a salido mal, intenta de nuevo',
-                    showConfirmButton: false,
-                    timer: 1200
-               })
-          }
+          setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
      }
+
+     if (data.success === true) {
+          history.push('/dashboard');
+     }
+
+     useEffect(() => {
+          getCollection('news');
+     }, [])
 
      return (
           <>{user ?
                <>
                     <NavBar />
-                    <div className="container my-1 text-center">
-                         <div className="alert alert-primary" role="alert">
-                              Llena lo campos requeridos y muéstrales a todos tu increíble código.
+                    <div className="container-fluid">
+                         <div className="alert alert-success text-center mx-5" role="alert">
+                              Llena lo campos requeridos y muéstrales a todos tu increíble código. ❤
+                                    </div>
+                         <div className="row">
+
+                              <div className="col-md-7 col-sm-12 text-center mx-5 my-3">
+                                   <h4 className="my-1">DATOS SOBRE TU PLANTILLA</h4>
+                                   <FormNewTemplate onSubmitNewTemplate={onSubmitNewTemplate} />
+                              </div>
+                              <div className="col-md-4 col-sm-12 text-center my-2">
+                                   <h4 className="my-2">SE AUTODIDACTA</h4>
+                                   <div className="badge badge-warning text-wrap" style={{ fontSize: "1rem", width: "80%" }}>
+                                        Aquí encontraras contenido relacionado a programación Web y WebScraping!
+                                   </div>
+                                   {
+                                        dataNews.map((value, index) =>
+                                             <CardNews key={index} data={
+                                                  {
+                                                       title: value.title,
+                                                       subheader: value.subheader,
+                                                       description: value.description,
+                                                       link: value.link,
+                                                  }
+                                             } />
+                                        )
+                                   }
+
+                              </div>
                          </div>
                     </div>
-                    <section className="container my-5 text-center">
-                         <h4 className="my-1">DATOS SOBRE TU PLANTILLA</h4>
-                         <FormNewTemplate onSubmitNewTemplate={onSubmitNewTemplate} />
-                    </section>
+
                     <Footer />
                </>
                :
