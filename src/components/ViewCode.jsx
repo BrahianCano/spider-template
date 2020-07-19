@@ -4,9 +4,8 @@ import React, { useState, useEffect } from 'react';
 import CodeMirror from 'react-codemirror';
 
 
-
 const ViewCode = (props) => {
-     //console.log(props)
+    // console.log(props)
 
      const [data, setData] = useState({})
      useEffect(() => {
@@ -16,7 +15,7 @@ const ViewCode = (props) => {
 
      const optionsCodeMirror = {
           lineNumbers: true,
-          readOnly: true,
+          readOnly: props.readOnly,
           mode: 'javascript',
           theme: 'material-ocean',
      };
@@ -24,7 +23,8 @@ const ViewCode = (props) => {
      return (
           <>
                {
-                    data.scriptCode !== undefined && <CodeMirror value={data.scriptCode} options={optionsCodeMirror} />
+                    data.scriptCode !== undefined && <CodeMirror value={data.scriptCode} options={optionsCodeMirror}
+                         onChange={(value) => { props.onChange ? props.onChange(value) : console.log(value) }} />
                }
           </>
 

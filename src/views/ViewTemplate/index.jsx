@@ -62,7 +62,7 @@ const ViewTemplateComponent = () => {
                                    </div>
                               </div>
                               {
-                                   data.response.scriptCode !== undefined && <ViewCode data={data.response} />
+                                   data.response.scriptCode !== undefined && <ViewCode data={data.response} readOnly={true}/>
                               }
 
                          </div>
