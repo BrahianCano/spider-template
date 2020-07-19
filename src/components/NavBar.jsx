@@ -46,8 +46,11 @@ const NavBarComponent = () => {
                               {user &&
                                    <>
                                         <li className="nav-item align-middle ml-5 m-1">
-                                             <img src={user.photoURL} alt="perfil" style={{ width: "40px", borderRadius: "50%" }} />
-                                             <strong className="m-1 text-light">{user.displayName}</strong>
+                                             <Link className="text-decoration-none" to="/dashboard/profile" data-toggle="tooltip" data-placement="right" title="Mi perfil">
+                                                  <img src={user.photoURL} alt="perfil" style={{ width: "40px", borderRadius: "50%" }} />
+                                                  <strong className="m-1 text-light">{user.displayName}</strong>
+                                             </Link>
+
                                         </li>
                                         <li className="nav-item m-1">
                                              <a className="nav-link" onClick={() => { signOutGoogle() }}><i className="fas fa-sign-out-alt"></i></a>

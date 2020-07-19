@@ -94,7 +94,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                               <input type="text" className="form-control" id="inputDescription" placeholder="Función para extraer fechas de formato texto en idioma Frances"
                                    value={dataInputs.descriptionCode}
                                    name="inputDescription"
-                                   ref={register({ required: true, maxLength: 130 })}
+                                   ref={register({ required: true, maxLength: 90 })}
                                    onChange={(event) => {
                                         setDataInputs({
                                              ...dataInputs,
@@ -103,7 +103,7 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                    }}
                               />
                               {errors.inputDescription?.type === "required" && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
-                              {errors.inputDescription?.type === "maxLength" && <span style={{ fontSize: "12px" }} className="text-danger">Solo se permite un maximo de 130 caracteres.</span>}
+                              {errors.inputDescription?.type === "maxLength" && <span style={{ fontSize: "12px" }} className="text-danger">Solo se permite un maximo de 90 caracteres.</span>}
                          </div>
                          <div className="form-group col-md-6 col-sm-12">
                               <label className="text-muted" htmlFor="validationAts">ATS</label>

@@ -31,7 +31,8 @@ const NewTemplateComponent = () => {
           const dataTemplate = {
                ...dataInputs,
                nameUser: user.displayName,
-               idTemplate: id
+               idTemplate: id,
+               idUser: user.uid
           }
           setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
      }
@@ -61,7 +62,7 @@ const NewTemplateComponent = () => {
                               <div className="col-md-4 col-sm-12 text-center my-2">
                                    <h4 className="my-2">SE AUTODIDACTA</h4>
                                    <div className="badge badge-warning text-wrap" style={{ fontSize: "1rem", width: "80%" }}>
-                                        Aquí encontraras contenido relacionado a programación Web y WebScraping!
+                                        Aquí encontraras contenido cada semana relacionado con programación Web y WebScraping!
                                    </div>
                                    {
                                         dataNews.map((value, index) =>

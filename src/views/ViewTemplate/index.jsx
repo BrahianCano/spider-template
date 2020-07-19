@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import { useParams, withRouter } from 'react-router-dom'
 
 // Estilos //
 import './index.css'
 
 // Utilidades //
-import { useFirestore } from "reactfire";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+
+// Custom Hooks //
+import UseGetDocFirestore from '../../hooks/UseGetDocFirestore.js';
 
 // Componentes //
 import NavBar from '../../components/NavBar';
@@ -17,31 +19,23 @@ import ViewCode from '../../components/ViewCode'
 
 const ViewTemplateComponent = () => {
      const { id } = useParams();
-     const firestore = useFirestore();
+     const [data, getDocCollection] = UseGetDocFirestore();
 
-     const [data, setData] = useState({});
-
-     const getDataTemplate = async () => {
-          const doc = await firestore().collection('templates').doc(id).get()
-          setData(doc.data());
-     }
-
-     useMemo(() => {
-          getDataTemplate();
+     useEffect(() => {
+          getDocCollection('templates', id);
      }, [])
-
 
      return (
           <>
                <NavBar />
                <div className="view-template-main container-fluid">
                     <div className="container">
-                         <h2>{data.titleCode}</h2>
-                         <h6 className="card-subtitle mb-2 text-muted">{data.nameUser} - {data.lastEditeCode}</h6>
-                         <p className="lead">{data.descriptionCode}</p>
+                         <h2>{data.response.titleCode}</h2>
+                         <h6 className="card-subtitle mb-2 text-muted">{data.response.nameUser} - {data.response.lastEditeCode}</h6>
+                         <p className="lead">{data.response.descriptionCode}</p>
                          <div>
-                              <span className="badge badge-success mx-1" style={{ fontSize: "15px" }}>{data.categoryCode}</span>
-                              <span className="badge badge-warning mx-1" style={{ fontSize: "15px" }}>{data.atsCode}</span>
+                              <span className="badge badge-success mx-1" style={{ fontSize: "15px" }}>{data.response.categoryCode}</span>
+                              <span className="badge badge-warning mx-1" style={{ fontSize: "15px" }}>{data.response.atsCode}</span>
                          </div>
                     </div>
                </div>
@@ -53,7 +47,7 @@ const ViewTemplateComponent = () => {
                                         <p className="text-muted" htmlFor="validationCode">CÓDIGO FUENTE</p>
                                    </div>
                                    <div className="p-1 flex-fill bd-highlight">
-                                        <CopyToClipboard text={data.scriptCode}
+                                        <CopyToClipboard text={data.response.scriptCode}
                                              onCopy={() => {
                                                   Swal.fire({
                                                        position: "center",
@@ -63,12 +57,12 @@ const ViewTemplateComponent = () => {
                                                        timer: 800,
                                                      });
                                              }}>
-                                             <button className="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="Copiar codigo"> <i className="far fa-copy" /> Copiar</button>
+                                             <button className="btn btn-secondary btn-sm"> <i className="far fa-copy" /> Copiar</button>
                                         </CopyToClipboard>
                                    </div>
                               </div>
                               {
-                                   data.scriptCode !== undefined && <ViewCode data={data} />
+                                   data.response.scriptCode !== undefined && <ViewCode data={data.response} />
                               }
 
                          </div>

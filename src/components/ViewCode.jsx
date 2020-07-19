@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 // Utilidades //
 import CodeMirror from 'react-codemirror';
 
+
+
 const ViewCode = (props) => {
      //console.log(props)
 
      const [data, setData] = useState({})
-
      useEffect(() => {
           setData(props.data)
           //console.log(data)

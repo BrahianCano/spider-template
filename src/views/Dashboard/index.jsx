@@ -30,7 +30,7 @@ const DashboardComponent = () => {
           viewColumns: false,
           onRowClick: function (rowData) {
                const id = rowData[6]
-               history.push('dashboard/' + id)
+               history.push('dashboard/template=' + id)
           }
      };
 
