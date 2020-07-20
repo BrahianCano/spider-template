@@ -20,6 +20,7 @@ const MainComponent = () => {
      const user = useUser();
      const [googleAuth] = UseLoginGoogle();
 
+     
      return (
           <>
                {!user ?

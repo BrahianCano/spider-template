@@ -4,18 +4,13 @@ import React, { useState } from 'react';
 import CodeMirror from 'react-codemirror';
 import { useForm } from "react-hook-form";
 import moment from 'moment';
+
+// Estilos //
 import Swal from 'sweetalert2';
 
 
 
-const FormNewTemplate = ({ onSubmitNewTemplate }) => {
-     const { register, handleSubmit, errors } = useForm();
-     const optionsCodeMirror = {
-          lineNumbers: true,
-          mode: 'javascript',
-          theme: 'material-ocean',
-     };
-
+export default function FormNewTemplate({ onSubmitNewTemplate }) {
      const dateNow = moment().format('ll');
 
      const stateInitial = {
@@ -29,7 +24,13 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
           lastEditeCode: dateNow,
           createDate: dateNow
      }
-
+     const optionsCodeMirror = {
+          lineNumbers: true,
+          readOnly: false,
+          mode: 'javascript',
+          theme: 'material-ocean',
+     };
+     const { register, handleSubmit, errors } = useForm();
      const [dataInputs, setDataInputs] = useState(stateInitial);
 
 
@@ -80,10 +81,14 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                         })
                                    }}
                               >
+                                   <option>Simple función</option>
+                                   <option>Expresión regular</option>
+                                   <option>Infinite pagination</option>
+                                   <option>Expected jobs</option>
+                                   <option>Before extrac</option>
                                    <option>Extrac</option>
                                    <option>Pagination</option>
-                                   <option>Jobdata</option>
-                                   <option>Función</option>
+                                   <option>Job description</option>
                                    <option defaultValue="Otro" >Otro</option>
                               </select>
                          </div>
@@ -119,30 +124,41 @@ const FormNewTemplate = ({ onSubmitNewTemplate }) => {
                                    <option>MYWORKDAY</option>
                                    <option>ADP</option>
                                    <option>ICIMS</option>
+                                   <option>JOBVITE</option>
+                                   <option>GOVERMENTJOBS</option>
+                                   <option>SUCCESSFACTORS</option>
+                                   <option>WORKABLE</option>
+                                   <option>TALEO</option>
                                    <option defaultValue="Otro" >Otro</option>
                               </select>
                          </div>
                     </div>
                     <div className="form-row my-3">
                          <div className="col-md-12 col-sm-12">
-                              <p className="text-muted" htmlFor="validationCode">Código fuente*</p>
-                              <CodeMirror value={dataInputs.scriptCode} options={optionsCodeMirror}
-                                   onChange={(valueCode) => {
-                                        setDataInputs({
-                                             ...dataInputs,
-                                             scriptCode: valueCode
-                                        })
-                                   }}
-                              />
+                              <div className="card my-2 shadow bg-white rounded" style={{ width: "100%" }}>
+                                   <div className="card-body">
+                                        <div className="d-flex bd-highlight">
+                                             <div className="flex-fill bd-highlight" style={{ width: "90%" }}>
+                                                  <p className="text-muted" htmlFor="validationCode">Código fuente*</p>
+                                             </div>
+                                        </div>
+                                        <CodeMirror value={dataInputs.scriptCode} options={optionsCodeMirror}
+                                             onChange={(valueCode) => {
+                                                  setDataInputs({
+                                                       ...dataInputs,
+                                                       scriptCode: valueCode
+                                                  })
+                                             }}
+                                        />
+                                   </div>
+                              </div>
                          </div>
                     </div>
                     <div className="form-row my-2 float-right">
                          <button className="btn btn-secondary" style={{ width: "180px" }}><i className="fas fa-file-code" /> Compartir</button>
                     </div>
                </form>
-
           </>
      );
-}
+};
 
-export default FormNewTemplate;

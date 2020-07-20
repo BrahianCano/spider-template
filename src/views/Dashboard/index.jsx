@@ -12,6 +12,7 @@ import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 
 
+
 const DashboardComponent = () => {
      const history = useHistory();
      const [data, getCollection] = UseGetCollectionFirestore();
@@ -29,7 +30,7 @@ const DashboardComponent = () => {
           selectableRowsHideCheckboxes: true,
           viewColumns: false,
           onRowClick: function (rowData) {
-               const id = rowData[6]
+               const id = rowData[7]
                history.push('dashboard/template=' + id)
           }
      };
@@ -69,6 +70,12 @@ const DashboardComponent = () => {
                label: "ATS", name: "atsCode", options: {
                     filter: true,
                     sort: false,
+               }
+          },
+          {
+               label: "UTILIZADO", name: "contCopy", options: {
+                    filter: false,
+                    sort: true,
                }
           },
           {

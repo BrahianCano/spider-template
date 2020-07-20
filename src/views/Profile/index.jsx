@@ -6,14 +6,21 @@ import { useUser } from 'reactfire';
 import { useFirestore } from "reactfire";
 import MUIDataTable from "mui-datatables";
 
+// Custom Hooks //
+import UseSingoutGoogle from '../../hooks/UseSingoutGoogle.js';
+
 // Componentes //
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
+
+
 
 const ProfileComponent = () => {
      const history = useHistory();
      const firestore = useFirestore();
      const user = useUser();
+     const [signOutGoogle] = UseSingoutGoogle();
+
 
      const [dataTemplate, setDataTemplates] = useState();
 
@@ -44,7 +51,7 @@ const ProfileComponent = () => {
           selectableRowsHideCheckboxes: true,
           viewColumns: false,
           onRowClick: function (rowData) {
-               const id = rowData[6]
+               const id = rowData[7]
                history.push('profile/template=' + id)
           }
      };
@@ -87,6 +94,12 @@ const ProfileComponent = () => {
                }
           },
           {
+               label: "UTILIZADO", name: "contCopy", options: {
+                    filter: false,
+                    sort: true,
+               }
+          },
+          {
                label: "ID TEMPLATE", name: "idTemplate", options: {
                     display: 'false',
                     filter: false,
@@ -117,18 +130,19 @@ const ProfileComponent = () => {
                     <>
                          <NavBar />
                          <div className="container-fluid">
-                              <div className="row m-5">
+                              <div className="row">
                                    <div className="col-md-4 col-sm-12 my-5">
                                         <div className="container text-center">
-                                             <img src={user.photoURL} style={{ borderRadius: "50%" }} alt="profile" />
+                                             <img src={user.photoURL} style={{ borderRadius: "50%", width: "60%" }} alt="profile" />
                                              <h3 className="mt-3">{user.displayName}</h3>
                                              <strong className="subheader text-muted">{user.email}</strong>
-                                             <p className="subheader text-muted">Ultimo inicio de sesion: {user.metadata.lastSignInTime.replace('GMT', '')}</p>
+                                             <p className="subheader text-muted">Ultimo inicio de sesión: {user.metadata.lastSignInTime}</p>
+                                             <button type="button" onClick={() => { signOutGoogle() }} class="btn btn-outline-dark">Cerrar sesión <i className="fas fa-sign-out-alt" /></button>
                                         </div>
                                    </div>
                                    <div className="col-md-8 col-sm-12 my-5">
-                                        <div className="alert alert-primary text-center">
-                                             ¡Actualiza tus plantillas! ❤
+                                        <div className="alert alert-success text-center">
+                                             ¡Actualiza tus plantillas, siempre se puede mejorar! ❤
                                    </div>
                                         <MUIDataTable
                                              title={"MIS PLANTILLAS"}
@@ -149,4 +163,4 @@ const ProfileComponent = () => {
      );
 }
 
-export default (ProfileComponent);
+export default withRouter(ProfileComponent);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 // Estilos // 
 import logo from '../assets/images/logo64.png';
@@ -13,10 +13,11 @@ import UseSingoutGoogle from '../hooks/UseSingoutGoogle.js';
 
 
 
-const NavBarComponent = () => {
+export default function NavBarComponent() {
      const user = useUser();
      const [googleAuth] = UseLoginGoogle();
      const [signOutGoogle] = UseSingoutGoogle();
+
 
      return (
           <>
@@ -35,14 +36,13 @@ const NavBarComponent = () => {
                               </li>
                               {user ?
                                    <li className="nav-item m-1">
-                                        <Link className="btn btn-outline-secondary" to="/newtemplate"><i className="fas fa-file-code" /> Compartir una platilla</Link>
+                                        <Link className="btn btn-outline-secondary" to="/newtemplate"><i className="fas fa-file-code" /> Compartir una plantilla</Link>
                                    </li>
                                    :
                                    <li className="nav-item m-1">
                                         <button className="btn btn-outline-secondary" onClick={() => { googleAuth() }}><i className="fas fa-file-code" /> Compartir una platilla</button>
                                    </li>
                               }
-
                               {user &&
                                    <>
                                         <li className="nav-item align-middle ml-5 m-1">
@@ -63,6 +63,4 @@ const NavBarComponent = () => {
                <div style={{ marginBottom: "70px" }}></div>
           </>
      );
-}
-
-export default NavBarComponent;
+};

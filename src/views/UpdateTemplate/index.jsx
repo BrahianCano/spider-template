@@ -18,6 +18,7 @@ import Footer from '../../components/Footer';
 import ViewCode from '../../components/ViewCode'
 
 
+
 const UpdateComponent = () => {
      const history = useHistory();
      const user = useUser();
@@ -53,16 +54,11 @@ const UpdateComponent = () => {
      }
 
      const onSubmit = () => {
-          const dataTemplate = {
-               ...dataInputs,
-               lastEditeCode: dateNow
-          }
+          const dataTemplate = { ...dataInputs, lastEditeCode: dateNow }
           setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
      };
 
-     if (dataUpdate.success === true) {
-          history.push('/dashboard/profile');
-     }
+     if (dataUpdate.success) history.push('/dashboard/profile');
 
 
      return (
@@ -74,7 +70,7 @@ const UpdateComponent = () => {
                               <div className="row py-5">
                                    <div className="col-md-7 col-sm-12">
                                         <div className="container">
-                                             <h2 className="mb-5">ULTIMA VERSIÓN</h2>
+                                             <h2 className="mb-5">NUEVA VERSIÓN</h2>
                                              <form onSubmit={handleSubmit(onSubmit)}>
                                                   <div className="form-row my-2">
                                                        <div className="form-group col-md-12 col-sm-12">
@@ -113,14 +109,18 @@ const UpdateComponent = () => {
                                    <div className="col-md-5 col-sm-12">
                                         <div className="container text-center">
                                              <h2>DATOS DEL CÓDIGO</h2>
-                                             <div className="card my-2 shadow bg-white rounded mt-5" style={{ width: "90%" }}>
+                                             <div className="card my-2 shadow bg-white rounded mt-5" style={{ width: "100%" }}>
                                                   <div className="card-body">
                                                        <h3 className="card-title">{data.response.titleCode}</h3>
-                                                       <h5 className="card-subtitle mb-2 text-muted">{data.response.nameUser}</h5>
-                                                       <h6 className="card-subtitle mb-2 text-muted">Fecha creación: {data.response.createDate}</h6>
-                                                       <h6 className="card-subtitle mb-2 text-muted">Ultima fecha edición: {data.response.lastEditeCode}</h6>
+                                                       <h5 className="card-subtitle mb-3 text-muted">{data.response.nameUser}</h5>
+                                                       <hr/>
+                                                       <h6 className="card-subtitle mb-3 text-muted">Fecha creación: {data.response.createDate}</h6>
+                                                       <h6 className="card-subtitle mb-3 text-muted">Ultima fecha edición: {data.response.lastEditeCode}</h6>
+                                                       <h6 className="card-subtitle mb-3 text-muted">Fue utilizado: {data.response.contCopy} veces.</h6>
+                                                       <hr/>
                                                        <div>
-                                                            <span className="badge badge-success mx-1" style={{ fontSize: "15px" }}>{data.response.categoryCode}</span>
+                                                       <h6 className="card-subtitle mb-3">Clasificación</h6>
+                                                            <span className="badge badge-info mx-1" style={{ fontSize: "15px" }}>{data.response.categoryCode}</span>
                                                             <span className="badge badge-warning mx-1" style={{ fontSize: "15px" }}>{data.response.atsCode}</span>
                                                        </div>
                                                   </div>

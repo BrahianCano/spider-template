@@ -32,14 +32,13 @@ const NewTemplateComponent = () => {
                ...dataInputs,
                nameUser: user.displayName,
                idTemplate: id,
-               idUser: user.uid
+               idUser: user.uid,
+               contCopy : 0
           }
           setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
      }
 
-     if (data.success === true) {
-          history.push('/dashboard');
-     }
+     if (data.success) history.push('/dashboard');
 
      useEffect(() => {
           getCollection('news');
@@ -61,7 +60,7 @@ const NewTemplateComponent = () => {
                               </div>
                               <div className="col-md-4 col-sm-12 text-center my-2">
                                    <h4 className="my-2">SE AUTODIDACTA</h4>
-                                   <div className="badge badge-warning text-wrap" style={{ fontSize: "1rem", width: "80%" }}>
+                                   <div className="badge badge-warning text-wrap my-3" style={{ fontSize: "1rem", width: "80%" }}>
                                         Aquí encontraras contenido cada semana relacionado con programación Web y WebScraping!
                                    </div>
                                    {

@@ -8,10 +8,10 @@ import 'firebase/auth'
 import Swal from 'sweetalert2';
 
 
-const UseSingoutGoogle = () => {
+
+export default function UseSingoutGoogle() {
      const firebase = useFirebaseApp();
      const history = useHistory();
-
 
      const signOutGoogle = () => {
           firebase.auth().signOut()
@@ -25,8 +25,10 @@ const UseSingoutGoogle = () => {
                          timer: 1500
                     })
                     history.push('/');
-               }).catch(function (err) {
+               })
+               .catch(function (err) {
                     // An error happened.
+                    console.error(err)
                     Swal.fire({
                          position: 'center',
                          icon: 'error',
@@ -34,11 +36,9 @@ const UseSingoutGoogle = () => {
                          showConfirmButton: false,
                          timer: 1500
                     })
-                    console.error(err)
                });
      }
 
      return [signOutGoogle];
-}
+};
 
-export default UseSingoutGoogle;

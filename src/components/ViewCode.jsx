@@ -4,14 +4,10 @@ import React, { useState, useEffect } from 'react';
 import CodeMirror from 'react-codemirror';
 
 
-const ViewCode = (props) => {
-    // console.log(props)
+export default function ViewCode(props) {
+     const [data, setData] = useState({});
 
-     const [data, setData] = useState({})
-     useEffect(() => {
-          setData(props.data)
-          //console.log(data)
-     })
+     useEffect(() => setData(props.data));
 
      const optionsCodeMirror = {
           lineNumbers: true,
@@ -29,6 +25,4 @@ const ViewCode = (props) => {
           </>
 
      );
-}
-
-export default ViewCode;
+};
