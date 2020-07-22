@@ -36,16 +36,16 @@ export default function NavBarComponent() {
                               </li>
                               {user ?
                                    <li className="nav-item m-1">
-                                        <Link className="btn btn-outline-secondary" to="/newtemplate"><i className="fas fa-file-code" /> Compartir una plantilla</Link>
+                                        <Link className="btn btn-outline-secondary" to="/newtemplate"><i className="far fa-file-code" /> Compartir una plantilla</Link>
                                    </li>
                                    :
                                    <li className="nav-item m-1">
-                                        <button className="btn btn-outline-secondary" onClick={() => { googleAuth() }}><i className="fas fa-file-code" /> Compartir una platilla</button>
+                                        <button className="btn btn-outline-secondary" onClick={() => { googleAuth() }}><i className="far fa-file-code" /> Compartir una plantilla</button>
                                    </li>
                               }
                               {user &&
                                    <>
-                                        <li className="nav-item align-middle ml-5 m-1">
+                                        <li className="nav-item align-middle ml-5 m-1 border border-light rounded-pill px-1">
                                              <Link className="text-decoration-none" to="/dashboard/profile" data-toggle="tooltip" data-placement="right" title="Mi perfil">
                                                   <img src={user.photoURL} alt="perfil" style={{ width: "40px", borderRadius: "50%" }} />
                                                   <strong className="m-1 text-light">{user.displayName}</strong>

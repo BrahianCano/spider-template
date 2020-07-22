@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory, withRouter, Link } from 'react-router-dom';
 
 // Utilidades //
 import MUIDataTable from "mui-datatables";
@@ -55,13 +55,13 @@ const DashboardComponent = () => {
                }
           },
           {
-               label: "DESCRIPCION", name: "descriptionCode", options: {
+               label: "DESCRIPCIÓN", name: "descriptionCode", options: {
                     filter: false,
                     sort: false,
                }
           },
           {
-               label: "CATEGORIA", name: "categoryCode", options: {
+               label: "CATEGORÍA", name: "categoryCode", options: {
                     filter: true,
                     sort: false,
                }
@@ -86,14 +86,14 @@ const DashboardComponent = () => {
                }
           },
           {
-               label: "FECHA CREACION", name: "createDate", options: {
+               label: "FECHA CREACIÓN", name: "createDate", options: {
                     display: 'false',
                     filter: false,
                     sort: false,
                }
           },
           {
-               label: "CODIGO FUENTE", name: "scriptCode", options: {
+               label: "CÓDIGO FUENTE", name: "scriptCode", options: {
                     display: 'false',
                     filter: false,
                     sort: false,
@@ -109,7 +109,7 @@ const DashboardComponent = () => {
                <div className="mx-3 my-5">
                     <div className="my-1">
                          <div className="alert alert-primary" role="alert">
-                              ¡Comparte tus plantillas y códigos con las comunidad! ❤
+                              ¡Comparte tus plantillas y códigos con la comunidad! ❤ <Link to="/dashboard/profile">| Ver mis plantillas</Link>
                          </div>
                     </div>
                     <MUIDataTable

@@ -71,7 +71,7 @@ export default function FormNewTemplate({ onSubmitNewTemplate }) {
                               {errors.inputTitle && <span style={{ fontSize: "12px" }} className="text-danger">Este campo es obligatorio</span>}
                          </div>
                          <div className="form-group col-md-6 col-sm-12">
-                              <label className="text-muted" htmlFor="validationStep">Categoria</label>
+                              <label className="text-muted" htmlFor="validationStep">Categoría</label>
                               <select className="custom-select" id="validationStep"
                                    value={dataInputs.categoryCode}
                                    onChange={(event) => {
@@ -155,7 +155,7 @@ export default function FormNewTemplate({ onSubmitNewTemplate }) {
                          </div>
                     </div>
                     <div className="form-row my-2 float-right">
-                         <button className="btn btn-secondary" style={{ width: "180px" }}><i className="fas fa-file-code" /> Compartir</button>
+                         <button className="btn btn-secondary" style={{ width: "180px" }}>Compartir  <i class="fas fa-upload"/></button>
                     </div>
                </form>
           </>

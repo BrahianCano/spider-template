@@ -76,13 +76,13 @@ const ProfileComponent = () => {
                }
           },
           {
-               label: "DESCRIPCION", name: "descriptionCode", options: {
+               label: "DESCRIPCIÓN", name: "descriptionCode", options: {
                     filter: false,
                     sort: false,
                }
           },
           {
-               label: "CATEGORIA", name: "categoryCode", options: {
+               label: "CATEGORÍA", name: "categoryCode", options: {
                     filter: true,
                     sort: false,
                }
@@ -107,14 +107,14 @@ const ProfileComponent = () => {
                }
           },
           {
-               label: "FECHA CREACION", name: "createDate", options: {
+               label: "FECHA CREACIÓN", name: "createDate", options: {
                     display: 'false',
                     filter: false,
                     sort: false,
                }
           },
           {
-               label: "CODIGO FUENTE", name: "scriptCode", options: {
+               label: "CÓDIGO FUENTE", name: "scriptCode", options: {
                     display: 'false',
                     filter: false,
                     sort: false,

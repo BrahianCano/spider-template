@@ -20,7 +20,7 @@ const MainComponent = () => {
      const user = useUser();
      const [googleAuth] = UseLoginGoogle();
 
-     
+
      return (
           <>
                {!user ?
@@ -28,7 +28,7 @@ const MainComponent = () => {
                          <div className="main">
                               <img className="main-logo figure-img img-fluid" src={logo} alt="logo" />
                               <h1>SpiderTemplate</h1>
-                              <p className="lead">¡Comparte tus plantillas y códigos con las comunidad!</p>
+                              <p className="lead">¡Comparte tus plantillas y códigos con la comunidad!</p>
                               <h4 className="mb-2" >¿Que deseas hacer?</h4>
                               <div className="row">
 

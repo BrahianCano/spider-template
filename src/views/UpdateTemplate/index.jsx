@@ -15,7 +15,11 @@ import moment from 'moment';
 // Componentes //
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
-import ViewCode from '../../components/ViewCode'
+import ViewCode from '../../components/ViewCode';
+
+
+// Estilos //
+import Swal from 'sweetalert2';
 
 
 
@@ -54,8 +58,19 @@ const UpdateComponent = () => {
      }
 
      const onSubmit = () => {
-          const dataTemplate = { ...dataInputs, lastEditeCode: dateNow }
-          setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
+          if (dataInputs.scriptCode.length > 0) {
+               const dataTemplate = { ...dataInputs, lastEditeCode: dateNow }
+               setDocCollection('templates', dataTemplate.idTemplate, dataTemplate);
+          } else {
+               Swal.fire({
+                    position: 'center',
+                    icon: 'question',
+                    title: '¿Y tu código?',
+                    showConfirmButton: false,
+                    timer: 1500
+               })
+          }
+
      };
 
      if (dataUpdate.success) history.push('/dashboard/profile');
@@ -90,8 +105,8 @@ const UpdateComponent = () => {
                                                   <div className="card my-2 shadow bg-white rounded" style={{ width: "100%" }}>
                                                        <div className="card-body">
                                                             <div className="d-flex bd-highlight">
-                                                                 <div className="p-1 flex-fill bd-highlight" style={{ width: "90%" }}>
-                                                                      <p className="text-muted" htmlFor="validationCode">CÓDIGO FUENTE</p>
+                                                                 <div className="flex-fill bd-highlight" style={{ width: "90%" }}>
+                                                                      <p className="text-muted" htmlFor="validationCode">Código fuente*</p>
                                                                  </div>
                                                             </div>
                                                             {
@@ -101,7 +116,7 @@ const UpdateComponent = () => {
                                                        </div>
                                                   </div>
                                                   <div className="form-row my-2 float-right">
-                                                       <button className="btn btn-secondary" style={{ width: "180px" }}><i className="fas fa-edit" /> Actualizar</button>
+                                                       <button className="btn btn-secondary" style={{ width: "180px" }}>Actualizar <i className="fas fa-edit" /></button>
                                                   </div>
                                              </form>
                                         </div>
