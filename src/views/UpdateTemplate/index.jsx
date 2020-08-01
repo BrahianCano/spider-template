@@ -4,6 +4,7 @@ import { useParams, withRouter, useHistory } from 'react-router-dom'
 // Custom Hooks //
 import UseGetDocFirestore from '../../hooks/UseGetDocFirestore.js';
 import UseSetCollectionFirestore from '../../hooks/UseSetCollectionFirestore.js';
+import UseDeleteCollectionFirestore from '../../hooks/UseDeleteCollectionFirestore.js';
 
 
 // Utilidades //
@@ -16,7 +17,7 @@ import moment from 'moment';
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import ViewCode from '../../components/ViewCode';
-
+import Error from '../../pages/ErrorPage/index.jsx';
 
 // Estilos //
 import Swal from 'sweetalert2';
@@ -30,11 +31,12 @@ const UpdateComponent = () => {
      const dateNow = moment().format('ll');
 
      const [data, getDocCollection] = UseGetDocFirestore();
+     const [dataDelete, deleteDocCollection] = UseDeleteCollectionFirestore();
      const [dataUpdate, setDocCollection] = UseSetCollectionFirestore();
      const { register, handleSubmit, errors } = useForm();
 
      const [dataInputs, setDataInputs] = useState({});
-     const [permissions, setPermissions] = useState();
+     const [permissions, setPermissions] = useState(false);
 
      useEffect(() => {
           getDocCollection('templates', id);
@@ -47,10 +49,19 @@ const UpdateComponent = () => {
 
 
      useEffect(() => {
-          if (user && user.uid === data.response.idUser) {
-               setPermissions(true)
+          if (dataDelete.success == true) {
+               history.push('/dashboard/profile');
           }
-     }, [data.response.idUser]);
+     }, [dataDelete.success]);
+
+
+     useEffect(() => {
+          if (data.response !== undefined) {
+               if (user && user.uid === data.response.idUser) {
+                    setPermissions(true)
+               }
+          }
+     }, [data.response]);
 
 
      const onChange = (value) => {
@@ -74,7 +85,6 @@ const UpdateComponent = () => {
      };
 
      if (dataUpdate.success) history.push('/dashboard/profile');
-
 
      return (
           <>
@@ -123,32 +133,39 @@ const UpdateComponent = () => {
                                    </div>
                                    <div className="col-md-5 col-sm-12">
                                         <div className="container text-center">
-                                             <h2>DATOS DEL CÓDIGO</h2>
+                                             <h2>DATOS DE LA PLANTILLA</h2>
                                              <div className="card my-2 shadow bg-white rounded mt-5" style={{ width: "100%" }}>
                                                   <div className="card-body">
-                                                       <h3 className="card-title">{data.response.titleCode}</h3>
+                                                       <h2 className="card-title">{data.response.titleCode}</h2>
                                                        <h5 className="card-subtitle mb-3 text-muted">{data.response.nameUser}</h5>
-                                                       <hr/>
-                                                       <h6 className="card-subtitle mb-3 text-muted">Fecha creación: {data.response.createDate}</h6>
-                                                       <h6 className="card-subtitle mb-3 text-muted">Ultima fecha edición: {data.response.lastEditeCode}</h6>
-                                                       <h6 className="card-subtitle mb-3 text-muted">Fue utilizado: {data.response.contCopy} veces.</h6>
-                                                       <hr/>
+                                                       <hr />
+                                                       <h6 className="mb-3 text-muted"><b>Fecha creación:</b> {data.response.createDate}</h6>
+                                                       <h6 className="mb-3 text-muted"><b>Ultima fecha edición:</b> {data.response.lastEditeCode}</h6>
+                                                       <h6 className="mb-3 text-muted"><b>Fue utilizado:</b> {data.response.contCopy} veces.</h6>
+                                                       <hr />
                                                        <div>
-                                                       <h6 className="card-subtitle mb-3">Clasificación</h6>
+                                                            <h6 className="card-subtitle mb-3">Clasificación</h6>
                                                             <span className="badge badge-info mx-1" style={{ fontSize: "15px" }}>{data.response.categoryCode}</span>
                                                             <span className="badge badge-warning mx-1" style={{ fontSize: "15px" }}>{data.response.atsCode}</span>
                                                        </div>
                                                   </div>
                                              </div>
+                                             <div className="border border-danger p-3 rounded">
+                                                  <h3 className="text-danger">ZONA DE PELIGRO <i class="fas fa-exclamation-triangle" /></h3>
+                                                  <hr className="text-danger" />
+                                                  <h4 className="mt-5" >Elimina esta plantilla</h4>
+                                                  <p className="my-1 text-muted">Una vez que elimine esta plantilla, no hay vuelta atrás. Por favor, esté seguro.</p>
+                                                  <button type="button" class="btn btn-danger my-1"
+                                                       onClick={() => { deleteDocCollection('templates', id) }}>Eliminar <i class="fas fa-trash-alt" /></button>
+                                             </div>
                                         </div>
                                    </div>
-
                               </div>
                          </div>
                          <Footer />
                     </>
                     :
-                    <p>DEBES INICIAR SESIÓN CON EL RESPECTIVO CREADOR PARA ACTUALIZAR ESTE CÓDIGO</p>
+                    <Error />
                }
           </>
      );

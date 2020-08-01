@@ -16,6 +16,8 @@ import UseSetCollectionFirestore from '../../hooks/UseSetCollectionFirestore.js'
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import ViewCode from '../../components/ViewCode';
+import Error from '../../pages/ErrorPage/index.jsx';
+
 
 
 
@@ -64,7 +66,7 @@ const ViewTemplateComponent = () => {
                                              <div className="col-md-5 col-sm-12">
                                                   <h2 className="mb-3"><i className="fas fa-star"></i> Popularidad </h2>
                                                   <div className="badge badge-success mb-3" style={{ fontSize: "1.1rem" }}>
-                                                    Este código ha sido utilizado: {data.response.contCopy} veces
+                                                       Este código ha sido utilizado: {data.response.contCopy} veces
                                                   </div>
                                                   <div>
                                                        <CopyToClipboard text={window.location.href}
@@ -111,7 +113,7 @@ const ViewTemplateComponent = () => {
                               <Footer />
                          </>
                          :
-                         <p>ESTA PLANTILLA NO EXISTE, VERIFICA BIEN EN ENLACE</p>
+                         <Error />
                }
           </>
 

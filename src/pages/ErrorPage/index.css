@@ -1,0 +1,15 @@
+.page-error div.col-md-5{
+     padding: 2rem;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+}
+
+.page-error div.col-md-7{
+     padding: 2rem;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+}
