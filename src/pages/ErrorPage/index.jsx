@@ -37,10 +37,10 @@ const ErrorComponent = () => {
                               {!user &&
                                    <button className="btn btn-secondary"
                                         onClick={() => { googleAuth() }}
-                                   ><i class="fab fa-google" /> Iniciar sesión</button>
+                                   ><i className="fab fa-google" /> Iniciar sesión</button>
                               }
                               {user &&
-                                   <Link className="btn btn-outline-dark" to="/dashboard"><i class="fas fa-arrow-left" /> Regresar</Link>
+                                   <Link className="btn btn-outline-dark" to="/dashboard/search"><i className="fas fa-arrow-left" /> Regresar</Link>
                               }
 
                          </div>

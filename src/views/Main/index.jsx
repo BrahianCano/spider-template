@@ -38,7 +38,7 @@ const MainComponent = () => {
                                         ><i className="fas fa-file-code" /> Compartir una plantilla</a>
                                    </div>
                                    <div className="col-sm-12 col-md-12">
-                                        <Link type="button" to="/dashboard" className="btn btn-dark"><i className="fas fa-search" /> Buscar una plantilla</Link>
+                                        <Link type="button" to="/dashboard/search" className="btn btn-dark"><i className="fas fa-search" /> Buscar una plantilla</Link>
                                    </div>
                               </div>
 

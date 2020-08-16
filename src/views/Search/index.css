@@ -1,0 +1,19 @@
+.page-search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 75vh;
+}
+
+.page-search__actions .row {
+  width: 60%;
+}
+
+.page-search__actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+

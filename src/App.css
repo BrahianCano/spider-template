@@ -27,6 +27,14 @@ a {
   font-family: "Nunito", sans-serif !important;
 }
 
+#searchtemplate {
+  padding: 0 15px;
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+}
+
+
 .btn-outline-secondary {
   border-color: #e34b31 !important;
   color: #f3f9fb !important;

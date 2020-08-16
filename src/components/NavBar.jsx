@@ -22,7 +22,7 @@ export default function NavBarComponent() {
      return (
           <>
                <nav className="navbar fixed-top navbar-dark bg-dark navbar-expand-lg">
-                    <Link className="navbar-brand" to="/dashboard">
+                    <Link className="navbar-brand" to="/dashboard/search">
                          <img src={logo} width="30" height="30" className="d-inline-block align-top" alt="" loading="lazy" />
                          SpiderTemplate
                      </Link>
@@ -32,7 +32,7 @@ export default function NavBarComponent() {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                          <ul className="navbar-nav text-center">
                               <li className="nav-item m-1">
-                                   <Link className="btn btn-outline-secondary" to="/dashboard"><i className="fas fa-search" /> Buscar una plantilla</Link>
+                                   <Link className="btn btn-outline-secondary" to="/dashboard/search"><i className="fas fa-search" /> Buscar una plantilla</Link>
                               </li>
                               {user ?
                                    <li className="nav-item m-1">

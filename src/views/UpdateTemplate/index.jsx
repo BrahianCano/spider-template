@@ -151,12 +151,12 @@ const UpdateComponent = () => {
                                                   </div>
                                              </div>
                                              <div className="border border-danger p-3 rounded">
-                                                  <h3 className="text-danger">ZONA DE PELIGRO <i class="fas fa-exclamation-triangle" /></h3>
+                                                  <h3 className="text-danger">ZONA DE PELIGRO <i className="fas fa-exclamation-triangle" /></h3>
                                                   <hr className="text-danger" />
                                                   <h4 className="mt-5" >Elimina esta plantilla</h4>
                                                   <p className="my-1 text-muted">Una vez que elimine esta plantilla, no hay vuelta atrás. Por favor, esté seguro.</p>
-                                                  <button type="button" class="btn btn-danger my-1"
-                                                       onClick={() => { deleteDocCollection('templates', id) }}>Eliminar <i class="fas fa-trash-alt" /></button>
+                                                  <button type="button" className="btn btn-danger my-1"
+                                                       onClick={() => { deleteDocCollection('templates', id) }}>Eliminar <i className="fas fa-trash-alt" /></button>
                                              </div>
                                         </div>
                                    </div>

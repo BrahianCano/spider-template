@@ -137,7 +137,7 @@ const ProfileComponent = () => {
                                              <h3 className="mt-3">{user.displayName}</h3>
                                              <strong className="subheader text-muted">{user.email}</strong>
                                              <p className="subheader text-muted">Ultimo inicio de sesión: {user.metadata.lastSignInTime}</p>
-                                             <button type="button" onClick={() => { signOutGoogle() }} class="btn btn-outline-dark">Cerrar sesión <i className="fas fa-sign-out-alt" /></button>
+                                             <button type="button" onClick={() => { signOutGoogle() }} className="btn btn-outline-dark">Cerrar sesión <i className="fas fa-sign-out-alt" /></button>
                                         </div>
                                    </div>
                                    <div className="col-md-8 col-sm-12 my-5">
